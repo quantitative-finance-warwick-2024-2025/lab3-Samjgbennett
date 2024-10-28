@@ -7,6 +7,7 @@ Implement the function minus(), which calculates the difference of two numbers.
 This function should have two signed integer arguments and return a signed integer.
 Check that it works by calling exercise_1() from main().
 */
+
 void exercise_1()
 {
     std::cout << minus(10, 5) << '\n';
@@ -16,7 +17,7 @@ void exercise_1()
 
 int minus(int n, int m)
 {
-    return 0;
+    return n - m;
 }
 
 /*
@@ -25,6 +26,7 @@ Implement the function with signature: unsigned int fib_loop(unsigned int n),
 which calculates and returns the n'th Fibonacci number F_n. Your function should use a loop.
 call exercise_2() from main() to print out the first 10 Fibonacci numbers using fib_loop.
 */
+
 void exercise_2()
 {
     std::cout << fib_loop(0);
@@ -50,8 +52,12 @@ unsigned int fib_loop(unsigned int n)
     unsigned int f_n_minus_1 = 1;
     unsigned int f_n_minus_2 = 0;
 
-    // implement the loop here
-
+    for (unsigned i = 2 ; i <= n ; ++i) {
+        f_n = f_n_minus_1 + f_n_minus_2;
+        f_n_minus_2 = f_n_minus_1;
+        f_n_minus_1 = f_n;
+    }
+        
     return f_n;
 }
 
@@ -73,9 +79,17 @@ void exercise_3()
 
 unsigned int fib_recursion(unsigned int n)
 {
+    if (n == 0) {
+        return 0;
+    }
+
+    if (n == 1) {
+        return 1;
+    }
     // implement base cases
     // implement the recursion in the return statement
-    return 0;
+    
+    return fib_recursion(n-1) + fib_recursion(n-2);
 }
 
 /*
@@ -94,11 +108,11 @@ void exercise_4()
     std::cout << '\n';
 }
 
-unsigned int fib_t_recursion_helper(unsigned int n, unsigned int f_n, unsigned int f_n_minus_1)
+unsigned int fib_t_recursion_helper(unsigned int n, unsigned int f_n = 1, unsigned int f_n_minus_1 = 0)
 {
-    // implement n == 1 case
-    // implement the tail recursion in the return statement
-    return 0;
+    if (n == 0) return f_n_minus_1;
+    return fib_t_recursion_helper(n-1,f_n_minus_1, f_n + f_n_minus_1);
+    
 }
 
 unsigned int fib_t_recursion(unsigned int n)
